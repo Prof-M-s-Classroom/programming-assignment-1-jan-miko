@@ -32,19 +32,30 @@ class SpaceRoute {
 private:
     Node<T>* head;
     Node<T>* tail;
+    int length;
 
 public:
-    SpaceRoute();  // Constructor
-    ~SpaceRoute(); // Destructor
-
+    SpaceRoute(T& *data) {// Constructor
+        Node<T> *newNode = new Node<T>(&data);
+        head = newNode;
+        tail = newNode;
+        length = 1;
+    }
+    ~SpaceRoute() {// Destructor
+        Node<T> *temp = head;
+        while (head) {
+            head = head->next;
+            delete temp;
+            temp = head;
+        }
+    }
     void addWaypointAtBeginning(T& data) {
-        Node<T>* newNode = new Node<T>(data);
+        Node<T> *newNode = new Node<T>(data);
         if (head == nullptr) { //add 1st node when link list is empty
             newNode -> data = data;
             newNode -> next = nullptr;
             newNode -> prev = nullptr;
-            head = newNode;
-            tail = newNode;
+            length = 1
         } else { // add 2nd node at Beginning
             newNode -> data = data;
             newNode -> next = nullptr;
@@ -70,20 +81,35 @@ public:
             tail = newNode;
         }
     }
-    void addWaypointAtIndex(int index, T& data){}
+    void addWaypointAtIndex(int index, T& data) {
+
+    }
     void removeWaypointAtBeginning(){}
     void removeWaypointAtEnd(){}
     void removeWaypointAtIndex(int index){}
-    void traverseForward(){}
-    void traverseBackward(){}
+
+    void traverseForward(Node<T>*head) { //prints list forward from head
+        Node<T>* traverser = head;
+        while (traverser != nullptr) {
+            cout <<traverser->data<<endl;
+            traverser = traverser -> next;
+        }
+    }
+    void traverseBackward(Node<T>*tail) { //prints list backward from tail
+        Node<T>* traverser = tail;
+        while (traverser != nullptr) {
+            cout <<traverser->data<<endl;
+            traverser = traverser -> prev;
+        }
+
+    }
     Node<T>* getWaypoint(int index){}
     void setWaypoint(int index, T& data){}
-    void print(){
-
-            Node<T>* current = head;
-            while (current) {
-                current->print();
-                current = current->next;
+    void print(){ //prints exactly like traverseForward so redundant
+            Node<T>* temp = head;
+            while (temp != nullptr) {
+                temp -> print();
+                temp = temp -> next;
             }
             cout << endl;
         }
