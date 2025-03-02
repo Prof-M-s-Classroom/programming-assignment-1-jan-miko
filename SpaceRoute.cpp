@@ -30,14 +30,12 @@ public:
 template <typename T>
 class SpaceRoute {
 private:
-    //T& data;
     Node<T>* head;
     Node<T>* tail;
     int length;
 
 public:
     SpaceRoute() {// Constructor
-        //Node<T> *newNode = new Node<T>(&data);
         head = nullptr;
         tail = nullptr;
         length = 0;
@@ -54,14 +52,14 @@ public:
         Node<T> *newNode = new Node<T>(data);
         if (head == nullptr) { //add 1st node when link list is empty
             head = newNode;
-            tail = newNode;
+            tail = newNode; //1st node is also head
 
         } else { // add 2nd node at Beginning
             newNode->next = head;
             head->prev = newNode;
             head = newNode;
         }
-        length++;
+        length++;   //either way the length gets updated
     }
 
     void addWaypointAtEnd(T& data) {
@@ -79,20 +77,27 @@ public:
     }
     void addWaypointAtIndex(int index, T& data) {
         Node<T> *newNode = new Node<T>(data);
-        if (index == 0) {
-            newNode->next = head;
-            head->prev = newNode;
-            head = newNode;
+        if (index == 0) { //same code as addWaypointAtBeginning
+            Node<T> *newNode = new Node<T>(data);
+            if (head == nullptr) { //add 1st node when link list is empty
+                head = newNode;
+                tail = newNode; //1st node is also head
+
+            } else { // add 2nd node at Beginning
+                newNode->next = head;
+                head->prev = newNode;
+                head = newNode;
+            }
         }
         else {
             Node<T> *temp = head;
-            for (int i = 0; i < index - 1; i++) {
+            for (int i = 0; i < index - 1; i++) { //traverse until just before desired index
                 temp = temp->next;
             }
             newNode->next = temp->next;
-            temp->next = newNode;
+            temp->next = newNode;   //insert newNode after temp
             newNode->prev = temp;
-            newNode->next->prev = newNode;
+            newNode->next->prev = newNode; //make sure can traverse in reverse
         }
         length++;
     }
@@ -128,7 +133,7 @@ public:
     void removeWaypointAtIndex(int index) {
         if (index == 0) {
             // if only one node in link list
-            if (head->next == nullptr) {
+            if (head->next == nullptr) { //similar code to removeWaypointAtBeginning
                 delete head;
                 head = nullptr;
                 tail = nullptr;
@@ -142,7 +147,7 @@ public:
         }
         else {
             Node<T> *temp = head;
-            for (int i = 0; i < index; i++) {
+            for (int i = 0; i < index; i++) {//traverse to desired index
                 temp = temp->next;
             }
             temp->prev->next = temp->next;
@@ -167,8 +172,8 @@ public:
         }
 
     }
-    Node<T>* getWaypoint(int index) {
-        if (index < 0 || index >= length)
+    Node<T>* getWaypoint(int index) { //from Canvas template
+        if (index < 0 || index >= length) //check if index is within proper range
             return nullptr;
         Node<T> *temp = head;
         for (int i = 0; i < index; ++i) {
@@ -179,7 +184,7 @@ public:
 
     void setWaypoint(int index, T& data) {
         Node<T> *temp = getWaypoint(index);
-        if (temp) {
+        if (temp) { //if possible add new data
             temp->data = data;
         }
     }
