@@ -37,16 +37,37 @@ public:
     SpaceRoute();  // Constructor
     ~SpaceRoute(); // Destructor
 
-    void addWaypointAtBeginning(T& data);
-    void addWaypointAtEnd(T& data);
-    void addWaypointAtIndex(int index, T& data);
-    void removeWaypointAtBeginning();
-    void removeWaypointAtEnd();
-    void removeWaypointAtIndex(int index);
-    void traverseForward();
-    void traverseBackward();
-    Node<T>* getWaypoint(int index);
-    void setWaypoint(int index, T& data);
+    void addWaypointAtBeginning(T& data) {
+        Node<T> *newNode = new Node<T>(data);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+    }
+
+    void addWaypointAtEnd(T& data) {
+        Node<T> *newNode = new Node<T>(data);
+        if (head == nullptr) {
+            head = newNode;
+            tail = newNode;
+        } else {
+            tail->next = newNode;
+            newNode->prev = tail;
+            tail = newNode;
+        }
+    }
+    void addWaypointAtIndex(int index, T& data){}
+    void removeWaypointAtBeginning(){}
+    void removeWaypointAtEnd(){}
+    void removeWaypointAtIndex(int index){}
+    void traverseForward(){}
+    void traverseBackward(){}
+    Node<T>* getWaypoint(int index){}
+    void setWaypoint(int index, T& data){}
     void print(){
 
             Node<T>* current = head;
