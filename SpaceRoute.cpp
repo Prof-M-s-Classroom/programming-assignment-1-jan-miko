@@ -30,8 +30,11 @@ public:
 template <typename T>
 class SpaceRoute {
 private:
+    T& data;
     Node<T>* head;
     Node<T>* tail;
+    Node<T>* next;
+    Node<T>* prev;
     int length;
 
 public:
@@ -84,8 +87,37 @@ public:
     void addWaypointAtIndex(int index, T& data) {
 
     }
-    void removeWaypointAtBeginning(){}
-    void removeWaypointAtEnd(){}
+    void removeWaypointAtBeginning() {
+        // if only one node in link list
+        if (head -> next == nullptr) {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+            length--;
+        }
+        // if more than one node in link list
+        else if (head != nullptr) {
+            head = head -> next;
+            delete head -> prev;
+            head -> prev = nullptr;
+            length--;
+        }
+    }
+    void removeWaypointAtEnd() {
+        // if only one node in link list
+        if (head-> next == nullptr) {
+            delete head;
+            head = nullptr;
+            tail = nullptr;
+            length--;
+        }// if more than one node in link list
+        else if (head != nullptr) {
+            tail = tail -> prev;
+            delete tail -> next;
+            tail -> next = nullptr;
+            length--;
+        }
+    }
     void removeWaypointAtIndex(int index){}
 
     void traverseForward(Node<T>*head) { //prints list forward from head
