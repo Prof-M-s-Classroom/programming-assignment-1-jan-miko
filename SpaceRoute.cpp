@@ -39,13 +39,13 @@ public:
 
     void addWaypointAtBeginning(T& data) {
         Node<T>* newNode = new Node<T>(data);
-        if (head == nullptr) {
+        if (head == nullptr) { //add 1st node when link list is empty
             newNode -> data = data;
             newNode -> next = nullptr;
             newNode -> prev = nullptr;
             head = newNode;
             tail = newNode;
-        } else {
+        } else { // add 2nd node at Beginning
             newNode -> data = data;
             newNode -> next = nullptr;
             newNode -> prev = head;
@@ -56,13 +56,13 @@ public:
 
     void addWaypointAtEnd(T& data) {
         Node<T> *newNode = new Node<T>(data);
-        if (head == nullptr) {
+        if (head == nullptr) { // add 1st node when link list is empty
             newNode -> data = data;
             newNode -> next = nullptr;
             newNode -> prev = nullptr;
             head = newNode;
             tail = newNode;
-        } else {
+        } else { // add 2nd node at End
             newNode -> data = data;
             newNode -> next = nullptr;
             newNode -> prev = tail;
