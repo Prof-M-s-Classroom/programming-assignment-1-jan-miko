@@ -35,12 +35,12 @@ private:
     int length;
 
 public:
-    SpaceRoute() {// Constructor
+    SpaceRoute() {// Constructor //O(1)
         head = nullptr;
         tail = nullptr;
         length = 0;
     }
-    ~SpaceRoute() {// Destructor
+    ~SpaceRoute() {// Destructor //O(n)
         Node<T> *temp = head;
         while (head) {
             head = head->next;
@@ -48,7 +48,7 @@ public:
             temp = head;
         }
     }
-    void addWaypointAtBeginning(T& data) {
+    void addWaypointAtBeginning(T& data) { //O(1)
         Node<T> *newNode = new Node<T>(data);
         if (head == nullptr) { //add 1st node when link list is empty
             head = newNode;
@@ -62,7 +62,7 @@ public:
         length++;   //either way the length gets updated
     }
 
-    void addWaypointAtEnd(T& data) {
+    void addWaypointAtEnd(T& data) { //O(1)
         Node<T> *newNode = new Node<T>(data);
         if (head == nullptr) { // add 1st node when link list is empty
             head = newNode;
@@ -75,7 +75,7 @@ public:
         }
         length++;
     }
-    void addWaypointAtIndex(int index, T& data) {
+    void addWaypointAtIndex(int index, T& data) { //O(n)
         Node<T> *newNode = new Node<T>(data);
         if (index == 0) { //same code as addWaypointAtBeginning
             Node<T> *newNode = new Node<T>(data);
@@ -101,7 +101,7 @@ public:
         }
         length++;
     }
-    void removeWaypointAtBeginning() {
+    void removeWaypointAtBeginning() { //O(1)
         // if only one node in link list
         if (head->next == nullptr) {
             delete head;
@@ -116,7 +116,7 @@ public:
         }
         length--;
     }
-    void removeWaypointAtEnd() {
+    void removeWaypointAtEnd() { //O(1)
         // if only one node in link list
         if (head->next == nullptr) {
             delete head;
@@ -130,7 +130,7 @@ public:
         }
         length--;
     }
-    void removeWaypointAtIndex(int index) {
+    void removeWaypointAtIndex(int index) { //O(n)
         if (index == 0) {
             // if only one node in link list
             if (head->next == nullptr) { //similar code to removeWaypointAtBeginning
@@ -157,14 +157,14 @@ public:
         length--;
     }
 
-    void traverseForward() { //prints list forward from head
+    void traverseForward() { //prints list forward from head //O(n)
         Node<T>* traverser = head;
         while (traverser != nullptr) {
             cout <<traverser->data<<endl;
             traverser = traverser -> next;
         }
     }
-    void traverseBackward() { //prints list backward from tail
+    void traverseBackward() { //prints list backward from tail //O(n)
         Node<T>* traverser = tail;
         while (traverser != nullptr) {
             cout <<traverser->data<<endl;
@@ -172,7 +172,7 @@ public:
         }
 
     }
-    Node<T>* getWaypoint(int index) { //from Canvas template
+    Node<T>* getWaypoint(int index) { //from Canvas template //O(n)
         if (index < 0 || index >= length) //check if index is within proper range
             return nullptr;
         Node<T> *temp = head;
@@ -182,14 +182,14 @@ public:
         return temp;
     }
 
-    void setWaypoint(int index, T& data) {
+    void setWaypoint(int index, T& data) { //O(n)
         Node<T> *temp = getWaypoint(index);
         if (temp) { //if possible add new data
             temp->data = data;
         }
     }
 
-    void print(){ //prints exactly like traverseForward so redundant
+    void print(){ //prints exactly like traverseForward so it's redundant //O(n)
             Node<T>* temp = head;
             while (temp != nullptr) {
                 temp->print();
