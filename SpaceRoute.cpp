@@ -92,6 +92,7 @@ public:
             newNode->next = temp->next;
             temp->next = newNode;
             newNode->prev = temp;
+            newNode->next->prev = newNode;
         }
         length++;
     }
@@ -141,7 +142,7 @@ public:
         }
         else {
             Node<T> *temp = head;
-            for (int i = 0; i < index - 1; i++) {
+            for (int i = 0; i < index; i++) {
                 temp = temp->next;
             }
             temp->prev->next = temp->next;
@@ -151,14 +152,14 @@ public:
         length--;
     }
 
-    void traverseForward(Node<T>*head) { //prints list forward from head
+    void traverseForward() { //prints list forward from head
         Node<T>* traverser = head;
         while (traverser != nullptr) {
             cout <<traverser->data<<endl;
             traverser = traverser -> next;
         }
     }
-    void traverseBackward(Node<T>*tail) { //prints list backward from tail
+    void traverseBackward() { //prints list backward from tail
         Node<T>* traverser = tail;
         while (traverser != nullptr) {
             cout <<traverser->data<<endl;
@@ -175,9 +176,14 @@ public:
         }
         return temp;
     }
-    void setWaypoint(int index, T& data) {
 
+    void setWaypoint(int index, T& data) {
+        Node<T> *temp = getWaypoint(index);
+        if (temp) {
+            temp->data = data;
+        }
     }
+
     void print(){ //prints exactly like traverseForward so redundant
             Node<T>* temp = head;
             while (temp != nullptr) {
