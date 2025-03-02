@@ -30,19 +30,17 @@ public:
 template <typename T>
 class SpaceRoute {
 private:
-    T& data;
+    //T& data;
     Node<T>* head;
     Node<T>* tail;
-    Node<T>* next;
-    Node<T>* prev;
     int length;
 
 public:
-    SpaceRoute(T& *data) {// Constructor
-        Node<T> *newNode = new Node<T>(&data);
-        head = newNode;
-        tail = newNode;
-        length = 1;
+    SpaceRoute() {// Constructor
+        //Node<T> *newNode = new Node<T>(&data);
+        head = nullptr;
+        tail = nullptr;
+        length = 0;
     }
     ~SpaceRoute() {// Destructor
         Node<T> *temp = head;
@@ -55,70 +53,103 @@ public:
     void addWaypointAtBeginning(T& data) {
         Node<T> *newNode = new Node<T>(data);
         if (head == nullptr) { //add 1st node when link list is empty
-            newNode -> data = data;
-            newNode -> next = nullptr;
-            newNode -> prev = nullptr;
-            length = 1
+            head = newNode;
+            tail = newNode;
+
         } else { // add 2nd node at Beginning
-            newNode -> data = data;
-            newNode -> next = nullptr;
-            newNode -> prev = head;
+            newNode->next = head;
             head->prev = newNode;
             head = newNode;
         }
+        length++;
     }
 
     void addWaypointAtEnd(T& data) {
         Node<T> *newNode = new Node<T>(data);
         if (head == nullptr) { // add 1st node when link list is empty
-            newNode -> data = data;
-            newNode -> next = nullptr;
-            newNode -> prev = nullptr;
             head = newNode;
             tail = newNode;
+
         } else { // add 2nd node at End
-            newNode -> data = data;
-            newNode -> next = nullptr;
-            newNode -> prev = tail;
-            tail -> next = newNode;
+            newNode->prev = tail;
+            tail->next = newNode;
             tail = newNode;
         }
+        length++;
     }
     void addWaypointAtIndex(int index, T& data) {
-
+        Node<T> *newNode = new Node<T>(data);
+        if (index == 0) {
+            newNode->next = head;
+            head->prev = newNode;
+            head = newNode;
+        }
+        else {
+            Node<T> *temp = head;
+            for (int i = 0; i < index - 1; i++) {
+                temp = temp->next;
+            }
+            newNode->next = temp->next;
+            temp->next = newNode;
+            newNode->prev = temp;
+        }
+        length++;
     }
     void removeWaypointAtBeginning() {
         // if only one node in link list
-        if (head -> next == nullptr) {
+        if (head->next == nullptr) {
             delete head;
             head = nullptr;
             tail = nullptr;
-            length--;
         }
         // if more than one node in link list
         else if (head != nullptr) {
-            head = head -> next;
-            delete head -> prev;
-            head -> prev = nullptr;
-            length--;
+            head = head->next;
+            delete head->prev;
+            head->prev = nullptr;
         }
+        length--;
     }
     void removeWaypointAtEnd() {
         // if only one node in link list
-        if (head-> next == nullptr) {
+        if (head->next == nullptr) {
             delete head;
             head = nullptr;
             tail = nullptr;
-            length--;
         }// if more than one node in link list
         else if (head != nullptr) {
             tail = tail -> prev;
             delete tail -> next;
             tail -> next = nullptr;
-            length--;
         }
+        length--;
     }
-    void removeWaypointAtIndex(int index){}
+    void removeWaypointAtIndex(int index) {
+        if (index == 0) {
+            // if only one node in link list
+            if (head->next == nullptr) {
+                delete head;
+                head = nullptr;
+                tail = nullptr;
+            }
+            // if more than one node in link list
+            else if (head != nullptr) {
+                head = head->next;
+                delete head->prev;
+                head->prev = nullptr;
+            }
+        }
+        else {
+            Node<T> *temp = head;
+            for (int i = 0; i < index - 1; i++) {
+                temp = temp->next;
+            }
+            temp->prev->next = temp->next;
+            temp->next->prev = temp->prev;
+            delete temp;
+        }
+        length--;
+    }
 
     void traverseForward(Node<T>*head) { //prints list forward from head
         Node<T>* traverser = head;
@@ -135,13 +166,23 @@ public:
         }
 
     }
-    Node<T>* getWaypoint(int index){}
-    void setWaypoint(int index, T& data){}
+    Node<T>* getWaypoint(int index) {
+        if (index < 0 || index >= length)
+            return nullptr;
+        Node<T> *temp = head;
+        for (int i = 0; i < index; ++i) {
+            temp = temp->next;
+        }
+        return temp;
+    }
+    void setWaypoint(int index, T& data) {
+
+    }
     void print(){ //prints exactly like traverseForward so redundant
             Node<T>* temp = head;
             while (temp != nullptr) {
-                temp -> print();
-                temp = temp -> next;
+                temp->print();
+                temp = temp->next;
             }
             cout << endl;
         }
