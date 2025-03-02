@@ -38,12 +38,17 @@ public:
     ~SpaceRoute(); // Destructor
 
     void addWaypointAtBeginning(T& data) {
-        Node<T> *newNode = new Node<T>(data);
+        Node<T>* newNode = new Node<T>(data);
         if (head == nullptr) {
+            newNode -> data = data;
+            newNode -> next = nullptr;
+            newNode -> prev = nullptr;
             head = newNode;
             tail = newNode;
         } else {
-            newNode->next = head;
+            newNode -> data = data;
+            newNode -> next = nullptr;
+            newNode -> prev = head;
             head->prev = newNode;
             head = newNode;
         }
@@ -52,11 +57,16 @@ public:
     void addWaypointAtEnd(T& data) {
         Node<T> *newNode = new Node<T>(data);
         if (head == nullptr) {
+            newNode -> data = data;
+            newNode -> next = nullptr;
+            newNode -> prev = nullptr;
             head = newNode;
             tail = newNode;
         } else {
-            tail->next = newNode;
-            newNode->prev = tail;
+            newNode -> data = data;
+            newNode -> next = nullptr;
+            newNode -> prev = tail;
+            tail -> next = newNode;
             tail = newNode;
         }
     }
