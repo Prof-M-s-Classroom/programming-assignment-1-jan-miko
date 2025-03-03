@@ -21,11 +21,12 @@ Methods
 Here I will list what each Method does.
 
 Insertion Methods:
-- addWaypointAtBeginning: add a new waypoint as a node at the beginning of the list
-
-- addWaypointAtEnd
-
-- addWaypointAtIndex
+- addWaypointAtBeginning: add a new waypoint as a node at the beginning of the link list
+    - I put an if statement to consider when the link list is empty
+- addWaypointAtEnd: add a new waypoint as a node at the end of the link list
+    - Similar to the the insert at beginning, I wrote an if statement for the edge case of an empty link list.
+    - I used an else statement for when the link is not empty when adding to the end of the link list
+- addWaypointAtIndex: 
 
 Deletion Methods:
 - 
@@ -50,9 +51,10 @@ Print Method:
 Time Complexity
 Here I will state the Big 0 Complexity for each method and my reasonings.
 
-addWaypointAtBeginning: O(1)
-addWaypointAtEnd: O(1)
-addWaypointAtIndex: O(n)
+- addWaypointAtBeginning:O(1) This is because the lines of code are just assignment and comparison operators which run
+in constant time
+- addWaypointAtEnd: O(1) This is also constant time as it runs just primitive operations
+- addWaypointAtIndex: O(n) To insert at a certain index we would have to traverse the list so it's n time
 
 removeWaypointAtBeginning: O(1)
 removeWaypointAtEnd: O(1)
